@@ -20,7 +20,7 @@ export function DashboardPage({
   onViewToolProjects,
   onAddTool,
 }: Props) {
-  const { tools, projects, posts, settings, isDoable } = useAppStore();
+  const { tools, projects, settings, isDoable } = useAppStore();
   const doable = projects.filter(isDoable);
   const greeting = settings.name ? settings.name + '.' : 'Homeowner.';
   const wxCoords =
