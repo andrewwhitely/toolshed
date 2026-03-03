@@ -138,7 +138,7 @@ export function QuickAddModal({ open, onClose, defaultType = 'tool' }: Props) {
         {/* ── Tool form ── */}
         {addType === 'tool' && (
           <div className='flex flex-col gap-3'>
-            <div className='grid grid-cols-2 gap-3'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
               <FormGroup label='Tool Name'>
                 <Input
                   placeholder='e.g. Circular Saw'
@@ -214,7 +214,7 @@ export function QuickAddModal({ open, onClose, defaultType = 'tool' }: Props) {
                 autoFocus
               />
             </FormGroup>
-            <div className='grid grid-cols-2 gap-3'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
               <FormGroup label='Type'>
                 <Select
                   value={project.type}
@@ -296,7 +296,7 @@ export function QuickAddModal({ open, onClose, defaultType = 'tool' }: Props) {
         {/* ── Post form ── */}
         {addType === 'post' && (
           <div className='flex flex-col gap-3'>
-            <div className='grid grid-cols-2 gap-3'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
               <FormGroup label='Title'>
                 <Input
                   placeholder='What did you build or learn?'
@@ -334,7 +334,7 @@ export function QuickAddModal({ open, onClose, defaultType = 'tool' }: Props) {
               <label className='block text-[9px] font-bold uppercase tracking-[0.1em] text-[var(--ink3)] mb-1'>
                 Quick Stats
               </label>
-              <div className='grid grid-cols-2 gap-2'>
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
                 <Input
                   type='number'
                   min='0'

@@ -18,35 +18,67 @@ interface SidebarSection {
 interface Props {
   sections: SidebarSection[];
   onClearFilters?: () => void;
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
 }
 
-export function Sidebar({ sections, onClearFilters }: Props) {
+export function Sidebar({
+  sections,
+  onClearFilters,
+  mobileOpen = false,
+  onMobileClose,
+}: Props) {
   const [collapsed, setCollapsed] = useState(false);
   const hasActive = sections.some((s) => s.items.some((i) => i.active));
+  const showExpanded = mobileOpen || !collapsed;
 
   return (
-    <aside
-      className='sidebar flex-shrink-0 border-r border-[var(--border)] overflow-y-auto overflow-x-hidden transition-all duration-200 relative z-10'
-      style={{
-        width: collapsed ? '44px' : '188px',
-        background: 'var(--sidebar-bg)',
-      }}
-    >
-      {/* Toggle button */}
-      <button
-        onClick={() => setCollapsed((c) => !c)}
-        title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        className='w-full flex items-center justify-center py-3 text-[var(--ink3)] hover:text-[var(--accent)] hover:bg-[var(--accent-bg)] transition-all duration-150 border-b border-[var(--border2)]'
-      >
-        <span
-          className='text-[10px] font-bold transition-transform duration-200'
-          style={{ transform: collapsed ? 'scaleX(1)' : 'scaleX(1)' }}
-        >
-          {collapsed ? '→' : '← Collapse'}
-        </span>
-      </button>
+    <>
+      {/* Mobile backdrop */}
+      {onMobileClose && (
+        <div
+          className={`md:hidden fixed inset-0 bg-black/40 z-40 transition-opacity duration-200 ${
+            mobileOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={onMobileClose}
+          aria-hidden="true"
+        />
+      )}
 
-      {collapsed ? (
+      <aside
+        className={`sidebar flex-shrink-0 border-r border-[var(--border)] overflow-y-auto overflow-x-hidden transition-all duration-200
+          fixed top-[54px] left-0 bottom-0 -translate-x-full z-50
+          md:relative md:top-auto md:left-auto md:bottom-auto md:translate-x-0 md:z-10
+          ${mobileOpen ? 'translate-x-0' : ''}
+        `}
+        style={{
+          width: showExpanded ? '188px' : '44px',
+          background: 'var(--sidebar-bg)',
+        }}
+      >
+      {/* Header: collapse on desktop, close on mobile */}
+      <div className='flex border-b border-[var(--border2)]'>
+        <button
+          onClick={() => setCollapsed((c) => !c)}
+          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          className='hidden md:flex w-full items-center justify-center py-3 text-[var(--ink3)] hover:text-[var(--accent)] hover:bg-[var(--accent-bg)] transition-all duration-150'
+        >
+          <span className='text-[10px] font-bold'>
+            {collapsed ? '→' : '← Collapse'}
+          </span>
+        </button>
+        {onMobileClose && (
+          <button
+            onClick={onMobileClose}
+            title='Close menu'
+            className='md:hidden w-full flex items-center justify-center py-3 text-[var(--ink3)] hover:text-[var(--accent)] hover:bg-[var(--accent-bg)] transition-all duration-150'
+          >
+            <span className='text-[10px] font-bold'>✕ Close</span>
+          </button>
+        )}
+      </div>
+
+      {!showExpanded ? (
         /* ── Collapsed: icons only ── */
         <div className='flex flex-col py-2'>
           {sections.map((section, i) => (
@@ -59,7 +91,10 @@ export function Sidebar({ sections, onClearFilters }: Props) {
               {section.items.map((item, j) => (
                 <div
                   key={j}
-                  onClick={item.onClick}
+                  onClick={() => {
+                    item.onClick();
+                    onMobileClose?.();
+                  }}
                   title={item.label}
                   className={`flex items-center justify-center py-[9px] cursor-pointer border-l-[3px] transition-all duration-100 select-none ${
                     item.active
@@ -102,7 +137,10 @@ export function Sidebar({ sections, onClearFilters }: Props) {
               {section.items.map((item, j) => (
                 <div
                   key={j}
-                  onClick={item.onClick}
+                  onClick={() => {
+                    item.onClick();
+                    onMobileClose?.();
+                  }}
                   className={`flex items-center gap-2 px-3.5 py-[7px] text-[11px] font-medium cursor-pointer border-l-[3px] transition-all duration-100 select-none ${
                     item.active
                       ? 'bg-[var(--accent-bg)] border-l-[var(--accent)] text-[var(--accent)]'
@@ -142,5 +180,6 @@ export function Sidebar({ sections, onClearFilters }: Props) {
         </div>
       )}
     </aside>
+    </>
   );
 }

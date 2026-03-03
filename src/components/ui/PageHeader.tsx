@@ -12,7 +12,7 @@ export function PageHeader({ title, subtitle, location, weather }: Props) {
   return (
     <div className='flex items-center justify-between mb-6 flex-wrap gap-3'>
       <div>
-        <h2 className='font-serif text-[28px] font-black text-[var(--ink)]'>
+        <h2 className='font-serif text-[22px] sm:text-[28px] font-black text-[var(--ink)]'>
           {title}
         </h2>
         {location && (

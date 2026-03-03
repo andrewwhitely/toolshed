@@ -227,6 +227,16 @@ export function useStore() {
     window.location.reload();
   }, []);
 
+  const resetToEmpty = useCallback(() => {
+    const empty = {
+      tools: [] as Tool[],
+      projects: [] as Project[],
+      posts: [] as Post[],
+      nextId: 1,
+    };
+    persistData(empty);
+  }, [persistData]);
+
   return {
     tools: data.tools,
     projects: data.projects,
@@ -248,6 +258,7 @@ export function useStore() {
     clearTools,
     clearProjects,
     clearData,
+    resetToEmpty,
   };
 }
 
