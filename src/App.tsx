@@ -26,6 +26,18 @@ export function App() {
     );
   }, [settings.theme]);
 
+  const PAGE_LABELS: Record<PageId, string> = {
+    dashboard: 'Dashboard',
+    tools: 'Tools',
+    projects: 'Projects',
+    blog: 'Field Notes',
+    settings: 'Settings',
+  };
+
+  useEffect(() => {
+    document.title = `ToolShed.fyi - Tool Inventory & Project Planner | ${PAGE_LABELS[page]}`;
+  }, [page]);
+
   function navigate(p: PageId) {
     setPage(p);
     setToolFilter(null);
