@@ -16,7 +16,8 @@ export type ThemeId =
   | 'makita'
   | 'bosch'
   | 'ridgid'
-  | 'kobalt';
+  | 'kobalt'
+  | 'blueprint';
 
 export type ToolCategory =
   | 'Power Tools'

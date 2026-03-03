@@ -20,6 +20,12 @@ export const BRAND_THEMES: BrandTheme[] = [
   { id: 'bosch', name: 'Bosch', tagline: 'Deep Blue', color: '#006EAF' },
   { id: 'ridgid', name: 'Ridgid', tagline: 'Trade Orange', color: '#F05500' },
   { id: 'kobalt', name: 'Kobalt', tagline: "Lowe's Blue", color: '#0066CC' },
+  {
+    id: 'blueprint',
+    name: 'Blueprint',
+    tagline: 'Drafting Paper',
+    color: '#0d6b8a',
+  },
 ];
 
 export const BRAND_COLORS: Record<

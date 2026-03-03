@@ -1,4 +1,5 @@
 import { WelcomeModal, hasSeenWelcome } from '@/components/WelcomeModal';
+import { Footer } from '@/components/layout/Footer';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Topbar } from '@/components/layout/Topbar';
 import { AddProjectModal } from '@/components/projects/AddProjectModal';
@@ -308,6 +309,7 @@ export function App() {
 					{page === 'settings' && <SettingsPage />}
 				</main>
 			</div>
+			<Footer className="md:hidden flex-shrink-0" />
 			<AddToolModal
 				open={addToolOpen}
 				onClose={() => setAddToolOpen(false)}

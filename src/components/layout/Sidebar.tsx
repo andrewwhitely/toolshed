@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Footer } from './Footer';
 
 interface SidebarItem {
   icon: string;
@@ -46,7 +47,7 @@ export function Sidebar({
       )}
 
       <aside
-        className={`sidebar flex-shrink-0 border-r border-[var(--border)] overflow-y-auto overflow-x-hidden transition-all duration-200
+        className={`sidebar flex-shrink-0 border-r border-[var(--border)] flex flex-col overflow-hidden transition-all duration-200
           fixed top-[54px] left-0 bottom-0 -translate-x-full z-50
           md:relative md:top-auto md:left-auto md:bottom-auto md:translate-x-0 md:z-10
           ${mobileOpen ? 'translate-x-0' : ''}
@@ -80,7 +81,7 @@ export function Sidebar({
 
       {!showExpanded ? (
         /* ── Collapsed: icons only ── */
-        <div className='flex flex-col py-2'>
+        <div className='flex flex-col flex-1 overflow-y-auto py-2'>
           {sections.map((section, i) => (
             <div
               key={i}
@@ -128,7 +129,7 @@ export function Sidebar({
         </div>
       ) : (
         /* ── Expanded: full labels ── */
-        <div className='py-2'>
+        <div className='flex-1 overflow-y-auto py-2'>
           {sections.map((section, i) => (
             <div key={i} className='mb-2'>
               <div className='text-[9px] uppercase tracking-[0.14em] font-bold text-[var(--ink3)] px-3.5 mb-1'>
@@ -179,6 +180,7 @@ export function Sidebar({
           )}
         </div>
       )}
+      <Footer className="hidden md:block flex-shrink-0" />
     </aside>
     </>
   );
